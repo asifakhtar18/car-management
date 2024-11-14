@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: ['https://car-management-beta.vercel.app/', 'http://localhost:5173', 'https://car-management-asifakhtar18s-projects.vercel.app/', 'https://car-management-git-main-asifakhtar18s-projects.vercel.app/'],
+    origin: ['https://car-management-beta.vercel.app', 'http://localhost:5173', 'https://car-management-asifakhtar18s-projects.vercel.app', 'https://car-management-git-main-asifakhtar18s-projects.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
