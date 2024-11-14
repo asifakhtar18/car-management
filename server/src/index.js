@@ -14,6 +14,10 @@ app.use(cors());
 app.use('/users', userRoute);
 app.use('/car', carRoute);
 
+app.get("/", (req, res) => {
+    res.send("Hello world")
+})
+
 
 
 app.listen(PORT, async () => {
