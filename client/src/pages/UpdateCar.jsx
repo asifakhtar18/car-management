@@ -59,16 +59,13 @@ const UpdateCar = () => {
     );
 
     try {
-      const response = await fetch(`${baseUrl}/car/${id}`, {
-        method: "PATCH",
+      const response = await axios.patch(`${baseUrl}/car/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: formData,
-        enctype: "multipart/form-data",
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         navigate(`/cars/${id}`);
       } else {
         throw new Error("Failed to update car");
