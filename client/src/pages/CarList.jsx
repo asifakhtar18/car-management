@@ -65,7 +65,7 @@ const CarList = () => {
     return <div className="text-center mt-8 text-red-400">Error: {error}</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-gray-900 min-h-screen">
+    <div className="px-8 py-8 bg-gray-900 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-white">My Cars</h1>
         <button

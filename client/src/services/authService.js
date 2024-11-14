@@ -2,6 +2,16 @@ import axios from "axios";
 
 import { baseUrl } from "../lib/contansts";
 
+
+export const checkServer = async () => {
+    try {
+        const response = await axios.get(baseUrl)
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const login = async (email, password) => {
     try {
         const response = await axios.post(`${baseUrl}/users/login`, { email, password });
