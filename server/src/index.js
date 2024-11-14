@@ -8,8 +8,9 @@ const { PORT } = require('./configs/config');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
-
+app.use(cors({
+    origin: ['https://car-management-beta.vercel.app', 'http://localhost:5173']
+}));
 
 app.use('/users', userRoute);
 app.use('/car', carRoute);
