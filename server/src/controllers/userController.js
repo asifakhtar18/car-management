@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
         }
 
         const token = await generateToken(user);
-        res.send({ user, token });
+        res.status(200).send({ user, token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Login failed" })
