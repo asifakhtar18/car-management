@@ -1,1 +1,1 @@
-export const baseUrl = "https://car-management-8vpx.vercel.app";
+export const baseUrl = "https://car-management-server-asifakhtar18s-projects.vercel.app";
