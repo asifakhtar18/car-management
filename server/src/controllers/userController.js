@@ -11,37 +11,47 @@ const generateToken = async (user) => {
 
 
 exports.register = async (req, res) => {
-    const { email, password, name } = req.body;
+    try {
+        const { email, password, name } = req.body;
 
-    if (!email || !password || !name) {
-        return res.status(400).send({ error: 'All fields are required' });
+        if (!email || !password || !name) {
+            return res.status(400).send({ error: 'All fields are required' });
+        }
+
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).send({ error: 'User already exists' });
+        }
+
+        const user = new User({ email, password, name });
+        await user.save();
+        const token = await generateToken(user);
+        res.status(201).send({ user, token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error })
     }
-
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-        return res.status(400).send({ error: 'User already exists' });
-    }
-
-    const user = new User({ email, password, name });
-    await user.save();
-    const token = await generateToken(user);
-    res.status(201).send({ user, token });
 };
 
 exports.login = async (req, res) => {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).send({ error: 'All fields are required' });
+        if (!email || !password) {
+            return res.status(400).send({ error: 'All fields are required' });
+        }
+
+        const user = await User.findOne({ email }).select('+password');
+
+        if (!user || !(await user.comparePassword(password))) {
+            return res.status(400).send({ error: 'Invalid credentials' });
+        }
+
+        const token = await generateToken(user);
+        res.send({ user, token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Login failed" })
     }
-
-    const user = await User.findOne({ email }).select('+password');
-
-    if (!user || !(await user.comparePassword(password))) {
-        return res.status(400).send({ error: 'Invalid credentials' });
-    }
-
-    const token = await generateToken(user);
-    res.send({ user, token });
 };
